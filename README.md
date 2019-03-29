@@ -18,13 +18,13 @@ I don't actually have one of these robots, but it sure looks like a decent piece
 - binary STL mesh as visual
 - single URDF-XACRO model
 - standard gazebo plugins:
-  - libgazebo_ros_imu_sensor
-  - libgazebo_ros_camera
-  - libgazebo_ros_skid_steer_drive
+  - IMU: libgazebo_ros_imu_sensor
+  - Camera: libgazebo_ros_camera
+  - Kinematics: libgazebo_ros_skid_steer_drive
+  - Cliff sensor: libgazebo_ros_range
 
 ##### To do: #####
 
-- add cliff sensors
 - add ranger
 - slice mesh and create movable head and fork
 - gazebo display plugin as face (?)

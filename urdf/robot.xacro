@@ -19,7 +19,7 @@
       <collision>
           <origin rpy="0.0 0 0" xyz="-0.009 0 0.02"/>
           <geometry>
-              <box size="0.06 0.025 0.035"/>
+              <box size="0.06 0.025 0.03"/>
           </geometry>
       </collision>
       <inertial>
@@ -127,91 +127,10 @@
      </plugin>
  </gazebo>
 
- <!-- sensors -->
-  <link name="head_camera">
-    <visual>
-        <origin rpy="0 ${pi/2} 0" xyz="0 0 0"/>
-        <geometry>
-          <cylinder length="0.001" radius="0.002"/>
-        </geometry>
-    </visual>
-  </link>
-  <joint name="head_camera_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="head_camera"/>
-    <origin rpy="0 0 0" xyz="0.02 0 0.033"/>
-  </joint>
+<!-- sensors -->
 
-  <gazebo reference="head_camera">
-  <sensor type="camera" name="head_camera">
-    <update_rate>30.0</update_rate>
-    <camera name="head_camera">
-      <horizontal_fov>2.0</horizontal_fov>
-      <image>
-        <width>1280</width>
-        <height>720</height>
-        <format>R8G8B8</format>
-      </image>
-      <clip>
-        <near>0.01</near>
-        <far>100.0</far>
-      </clip>
-    </camera>
-    <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-      <alwaysOn>true</alwaysOn>
-      <updateRate>30.0</updateRate>
-      <cameraName>head_camera</cameraName>
-      <imageTopicName>image_raw</imageTopicName>
-      <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-      <frameName>head_camera</frameName>
-      <hackBaseline>0.07</hackBaseline>
-      <distortionK1>0.0</distortionK1>
-      <distortionK2>0.0</distortionK2>
-      <distortionK3>0.0</distortionK3>
-      <distortionT1>0.0</distortionT1>
-      <distortionT2>0.0</distortionT2>
-    </plugin>
-  </sensor>
-  </gazebo>
-
- <link name="imu_link">
-     <visual>
-       <geometry>
-           <box size="0.001 0.001 0.001"/>
-       </geometry>
-     </visual>
-     <collision>
-       <geometry>
-         <box size="0.001 0.001 0.001"/>
-       </geometry>
-     </collision>
-     <inertial>
-         <mass value="0.008"/>
-         <inertia ixx="6.1066666666666663e-07" ixy="0" ixz="0" iyy="6.1066666666666663e-07" iyz="0" izz="1.1999999999999999e-06"/>
-     </inertial>
- </link>
- <joint name="imu_joint" type="fixed">
-     <parent link="base_link"/>
-     <child link="imu_link"/>
-     <origin rpy="0 0 0" xyz="0 0 0.05"/>
- </joint>
- <gazebo reference="imu_link">
-  <gravity>true</gravity>
-  <sensor name="imu_sensor" type="imu">
-    <always_on>true</always_on>
-    <update_rate>100</update_rate>
-    <visualize>true</visualize>
-    <topic>imu/data_raw</topic>
-    <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-      <topicName>imu/data_raw</topicName>
-      <bodyName>imu_link</bodyName>
-      <updateRateHZ>100.0</updateRateHZ>
-      <gaussianNoise>0.0001</gaussianNoise>
-      <xyzOffset>0 0 0</xyzOffset>
-      <rpyOffset>0 0 0</rpyOffset>
-      <frameName>imu_link</frameName>
-    </plugin>
-  </sensor>
- </gazebo>
+<xacro:include filename="$(find vector_description)/urdf/cliff_sensor.xacro"/>
+<xacro:include filename="$(find vector_description)/urdf/imu.xacro"/>
+<xacro:include filename="$(find vector_description)/urdf/camera.xacro"/>
 
 </robot>

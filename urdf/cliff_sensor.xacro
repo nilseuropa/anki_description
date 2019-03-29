@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+<xacro:macro name="cliff" params="link_name pos_x pos_y pos_z">
+  <link name="${link_name}">
+      <visual>
+          <geometry>
+              <box size="0.001 0.001 0.001"/>
+          </geometry>
+      </visual>
+  </link>
+  <joint name="${link_name}_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="${link_name}"/>
+      <origin rpy="0 ${pi/2} 0" xyz="${pos_x} ${pos_y} ${pos_z}"/>
+  </joint>
+
+  <gazebo reference="${link_name}">
+      <sensor type="ray" name="${link_name}">
+          <pose>0 0 0 0 0 0</pose>
+          <visualize>false</visualize>
+          <update_rate>5.0</update_rate>
+          <ray>
+              <scan>
+                  <horizontal>
+                      <samples>1</samples>
+                      <resolution>1</resolution>
+                      <min_angle>-0.05</min_angle>
+                      <max_angle>0.05</max_angle>
+                  </horizontal>
+                  <vertical>
+                      <samples>1</samples>
+                      <resolution>1</resolution>
+                      <min_angle>-0.05</min_angle>
+                      <max_angle>0.05</max_angle>
+                  </vertical>
+              </scan>
+              <range>
+                  <min>0.001</min>
+                  <max>0.2</max>
+                  <resolution>0.01</resolution>
+              </range>
+              <noise>
+                <type>gaussian</type>
+                <mean>0.01</mean>
+                <stddev>0.04</stddev>
+              </noise>
+          </ray>
+          <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+              <gaussianNoise>0.01</gaussianNoise>
+              <topicName>/cliff/${link_name}</topicName>
+              <frameName>${link_name}</frameName>
+              <radiation>INFRARED</radiation>
+              <updateRate>5</updateRate>
+              <fov>0.2617993878</fov>
+          </plugin>
+      </sensor>
+  </gazebo>
+</xacro:macro>
+
+<xacro:cliff link_name="rear_left"   pos_x="-0.035"  pos_y=" 0.01" pos_z="0.002"/>
+<xacro:cliff link_name="rear_right"  pos_x="-0.035"  pos_y="-0.01" pos_z="0.002"/>
+<xacro:cliff link_name="front_left"  pos_x=" 0.025"  pos_y=" 0.01" pos_z="0.002"/>
+<xacro:cliff link_name="front_right" pos_x=" 0.025"  pos_y="-0.01" pos_z="0.002"/>
+
+</robot>
