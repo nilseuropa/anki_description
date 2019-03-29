@@ -27,7 +27,7 @@
               <cylinder length="0.3" radius="0.2"/>
           </geometry>
           <mass value="0.998"/>
-          <inertia ixx="0.098875000000000005" ixy="0" ixz="0" iyy="0.098875000000000005" iyz="0" izz="0.11300000000000002"/>
+          <inertia ixx="0.017465000000000001" ixy="0" ixz="0" iyy="0.017465000000000001" iyz="0" izz="0.019960000000000002"/>
       </inertial>
   </link>
   <joint name="base_footprint_joint" type="fixed">
@@ -35,6 +35,34 @@
       <parent link="base_footprint"/>
       <child link="base_link"/>
   </joint>
+  <gazebo reference="base_link">
+      <selfCollide>true</selfCollide>
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+  </gazebo>
+
+  <link name="fork_link">
+      <collision>
+          <origin rpy="0 0 0" xyz="0 0 0"/>
+          <geometry>
+              <box size="0.005 0.04 0.002"/>
+          </geometry>
+      </collision>
+  </link>
+  <joint name="fork_joint" type="fixed">
+      <origin xyz="0.031 0.0 0.005" rpy="0 0 0"/>
+      <parent link="base_link"/>
+      <child link="fork_link"/>
+  </joint>
+  <gazebo reference="fork_link">
+      <selfCollide>true</selfCollide>
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+  </gazebo>
 
   <xacro:macro name="wheel" params="link_name pos_x pos_y pos_z">
     <link name="${link_name}">
@@ -53,7 +81,7 @@
     <joint name="${link_name}_joint" type="continuous">
         <parent link="base_link"/>
         <child link="${link_name}"/>
-          <origin rpy="${pi/2} 0 0" xyz="${pos_x} ${pos_y} ${pos_z}"/>
+          <origin rpy="${-pi/2} 0 0" xyz="${pos_x} ${pos_y} ${pos_z}"/>
         <axis xyz="0 0 1"/>
     </joint>
     <transmission name="${link_name}_transmission">
@@ -73,14 +101,18 @@
  <xacro:wheel link_name="front_right_wheel" pos_x=" 0.015" pos_y="-0.02" pos_z="0.01"/>
  <xacro:wheel link_name="front_left_wheel"  pos_x=" 0.015" pos_y=" 0.02" pos_z="0.01"/>
 
+ <!-- transmission -->
+
  <gazebo>
      <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
          <updateRate>100.0</updateRate>
          <robotNamespace>/</robotNamespace>
+
          <leftFrontJoint>front_left_wheel_joint</leftFrontJoint>
          <rightFrontJoint>front_right_wheel_joint</rightFrontJoint>
          <leftRearJoint>rear_left_wheel_joint</leftRearJoint>
          <rightRearJoint>rear_right_wheel_joint</rightRearJoint>
+
          <wheelSeparation>0.04</wheelSeparation>
          <wheelDiameter>0.02</wheelDiameter>
          <robotBaseFrame>base_footprint</robotBaseFrame>
@@ -93,6 +125,48 @@
          <covariance_y>0.0001</covariance_y>
          <covariance_yaw>0.001</covariance_yaw>
      </plugin>
+ </gazebo>
+
+ <!-- sensors -->
+
+ <link name="imu_link">
+     <visual>
+       <geometry>
+           <box size="0.001 0.001 0.001"/>
+       </geometry>
+     </visual>
+     <collision>
+       <geometry>
+         <box size="0.001 0.001 0.001"/>
+       </geometry>
+     </collision>
+     <inertial>
+         <mass value="0.008"/>
+         <inertia ixx="6.1066666666666663e-07" ixy="0" ixz="0" iyy="6.1066666666666663e-07" iyz="0" izz="1.1999999999999999e-06"/>
+     </inertial>
+ </link>
+ <joint name="imu_joint" type="fixed">
+     <parent link="base_link"/>
+     <child link="imu_link"/>
+     <origin rpy="0 0 0" xyz="0 0 0.05"/>
+ </joint>
+ <gazebo reference="imu_link">
+  <gravity>true</gravity>
+  <sensor name="imu_sensor" type="imu">
+    <always_on>true</always_on>
+    <update_rate>100</update_rate>
+    <visualize>true</visualize>
+    <topic>imu/data_raw</topic>
+    <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+      <topicName>imu/data_raw</topicName>
+      <bodyName>imu_link</bodyName>
+      <updateRateHZ>100.0</updateRateHZ>
+      <gaussianNoise>0.0001</gaussianNoise>
+      <xyzOffset>0 0 0</xyzOffset>
+      <rpyOffset>0 3.14 0</rpyOffset>
+      <frameName>imu_link</frameName>
+    </plugin>
+  </sensor>
  </gazebo>
 
 </robot>

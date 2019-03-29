@@ -1,0 +1,40 @@
+<launch>
+
+  <arg name="gazebo_gui" default="true"/>
+  <arg name="load_world" default="false"/>
+  <arg name="teleop" default="true"/>
+
+  <!-- load model to parameter server and spwan for gazebo -->
+  <arg name="model" default="$(find vector_description)/urdf/robot.xacro"/>
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" args="-z 0.0 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" />
+
+  <!-- state publishers -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
+  <!-- launch gazebo -->
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find vector_description)/world/practice.world" if="$(arg load_world)"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="$(arg gazebo_gui)"/>
+    <arg name="headless" value="false"/>
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <group if="$(arg teleop)">
+   <node pkg="joy" type="joy_node" name="joy_node">
+     <param name="dev" value="/dev/input/js0" />
+     <param name="deadzone" value="0.05" />
+     <param name="autorepeat_rate" value="100" />
+   </node>
+
+   <node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node">
+     <rosparam command="load" file="$(find vector_description)/params/airrow.config.yaml" />
+   </node>
+  </group>
+
+</launch>
