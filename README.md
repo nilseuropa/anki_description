@@ -24,6 +24,8 @@ I don't actually have one of these robots, but it sure looks like a decent piece
   - Cliff sensor: libgazebo_ros_range
   - NIR-TOF: libgazebo_ros_range
 
+<img src="doc/rviz.png" width="640">
+
 ##### To do: #####
 
 - slice mesh and create movable head and fork
