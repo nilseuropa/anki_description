@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package>
+  <name>vector_description</name>
+  <version>1.0.0</version>
+  <description>Anki Vector Robot Description</description>
+  <maintainer email="marton@nowtech.hu">Marton Yuhaas</maintainer>
+  <license>BSD-3 (code) and CC-BY-4.0 (XACRO, URDF, images, and STL models)</license>
+  <url type="website">http://nowtech.hu</url>
+  <author email="marton@nowtech.hu">Marton Yuhaas</author>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>urdf</build_depend>
+  <run_depend>urdf</run_depend>
+</package>
