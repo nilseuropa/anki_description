@@ -128,6 +128,51 @@
  </gazebo>
 
  <!-- sensors -->
+  <link name="head_camera">
+    <visual>
+        <origin rpy="0 ${pi/2} 0" xyz="0 0 0"/>
+        <geometry>
+          <cylinder length="0.001" radius="0.002"/>
+        </geometry>
+    </visual>
+  </link>
+  <joint name="head_camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="head_camera"/>
+    <origin rpy="0 0 0" xyz="0.02 0 0.033"/>
+  </joint>
+
+  <gazebo reference="head_camera">
+  <sensor type="camera" name="head_camera">
+    <update_rate>30.0</update_rate>
+    <camera name="head_camera">
+      <horizontal_fov>2.0</horizontal_fov>
+      <image>
+        <width>1920</width>
+        <height>1080</height>
+        <format>R8G8B8</format>
+      </image>
+      <clip>
+        <near>0.01</near>
+        <far>100.0</far>
+      </clip>
+    </camera>
+    <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>30.0</updateRate>
+      <cameraName>head_camera</cameraName>
+      <imageTopicName>image_raw</imageTopicName>
+      <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+      <frameName>head_camera</frameName>
+      <hackBaseline>0.07</hackBaseline>
+      <distortionK1>0.0</distortionK1>
+      <distortionK2>0.0</distortionK2>
+      <distortionK3>0.0</distortionK3>
+      <distortionT1>0.0</distortionT1>
+      <distortionT2>0.0</distortionT2>
+    </plugin>
+  </sensor>
+  </gazebo>
 
  <link name="imu_link">
      <visual>
@@ -163,7 +208,7 @@
       <updateRateHZ>100.0</updateRateHZ>
       <gaussianNoise>0.0001</gaussianNoise>
       <xyzOffset>0 0 0</xyzOffset>
-      <rpyOffset>0 3.14 0</rpyOffset>
+      <rpyOffset>0 0 0</rpyOffset>
       <frameName>imu_link</frameName>
     </plugin>
   </sensor>
