@@ -22,10 +22,10 @@ I don't actually have one of these robots, but it sure looks like a decent piece
   - Camera: libgazebo_ros_camera
   - Kinematics: libgazebo_ros_skid_steer_drive
   - Cliff sensor: libgazebo_ros_range
+  - NIR-TOF: libgazebo_ros_range
 
 ##### To do: #####
 
-- add ranger
 - slice mesh and create movable head and fork
 - gazebo display plugin as face (?)
 - wait for my birthday . . .

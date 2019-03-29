@@ -19,7 +19,7 @@
       <collision>
           <origin rpy="0.0 0 0" xyz="-0.009 0 0.02"/>
           <geometry>
-              <box size="0.06 0.025 0.03"/>
+              <box size="0.055 0.025 0.03"/>
           </geometry>
       </collision>
       <inertial>
@@ -132,5 +132,6 @@
 <xacro:include filename="$(find vector_description)/urdf/cliff_sensor.xacro"/>
 <xacro:include filename="$(find vector_description)/urdf/imu.xacro"/>
 <xacro:include filename="$(find vector_description)/urdf/camera.xacro"/>
+<xacro:include filename="$(find vector_description)/urdf/nir_tof.xacro"/>
 
 </robot>
