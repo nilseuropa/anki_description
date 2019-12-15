@@ -1,78 +1,101 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<!--Front left wheel-->
-<link name="front_left_wheel">
-  <xacro:cylinder_inertial mass="0.005" radius="0.01314" length="0.01167"/>
-  <visual>
-    <geometry>
-      <mesh filename="package://anki_description/meshes/flw2.dae"  />
-    </geometry>
-  </visual>
-  <collision>
-    <origin xyz="0 0 0"
-            rpy="1.57 0 0"/>
-    <geometry>
-        <cylinder radius="${0.026281/2.0}" length="0.0116739"/>
-    </geometry>
-  </collision>
-</link>
+  <xacro:macro name="front_wheel" params="link_name *origin">
+    <link name="${link_name}">
+      <xacro:cylinder_inertial mass="0.005" radius="0.01314" length="0.01167"/>
+      <visual> <!-- TODO: flip right side wheel -->
+        <geometry>
+          <mesh filename="package://anki_description/meshes/flw2.dae"  />
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+            <cylinder radius="${0.026281/2.0}" length="0.0116739"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${link_name}_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="${link_name}"/>
+        <xacro:insert_block name="origin"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <transmission name="${link_name}_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${link_name}_joint">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${link_name}_motor">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <mechanicalReduction>30</mechanicalReduction>
+        </actuator>
+    </transmission>
+  </xacro:macro>
 
-<!--Front right wheel  -->
-<link name="front_right_wheel">
-  <xacro:cylinder_inertial mass="0.005" radius="0.01314" length="0.01167"/>
-  <visual>
-    <geometry>
-      <mesh filename="package://anki_description/meshes/flw2.dae"/>
-    </geometry>
-  </visual>
-  <collision>
-    <origin xyz="0 0 0"
-            rpy="1.57 0 0"/>
-    <geometry>
-        <cylinder radius="${0.026281/2.0}" length="0.0116739"/>
-    </geometry>
-  </collision>
-</link>
+  <xacro:macro name="rear_wheel" params="link_name *origin">
+    <link name="${link_name}">
+      <xacro:cylinder_inertial mass="0.005" radius="0.01314" length="0.01167"/>
+      <visual>
+        <geometry>
+          <mesh filename="package://anki_description/meshes/rlw2.dae" />
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://anki_description/meshes/rlw2.dae"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${link_name}_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="${link_name}"/>
+        <xacro:insert_block name="origin"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <transmission name="${link_name}_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${link_name}_joint">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${link_name}_motor">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <mechanicalReduction>30</mechanicalReduction>
+        </actuator>
+    </transmission>
+  </xacro:macro>
 
-<!--Rear left wheel -->
-<link name="rear_left_wheel">
-  <xacro:cylinder_inertial mass="0.005" radius="0.008995" length="0.01167"/>
-  <visual>
-    <geometry>
-      <mesh filename="package://anki_description/meshes/rlw2.dae" />
-    </geometry>
-  </visual>
-  <collision>
-    <geometry>
-      <mesh filename="package://anki_description/meshes/rlw2.dae"/>
-    </geometry>
-  </collision>
-</link>
+<xacro:front_wheel link_name="front_wheel_left">
+  <origin xyz="0.03 0.024 -0.012"/>
+</xacro:front_wheel>
 
-<!--Rear right wheel -->
-<link name="rear_right_wheel">
-  <xacro:cylinder_inertial mass="0.005" radius="0.008995" length="0.01167"/>
-  <visual>
-    <geometry>
-      <mesh filename="package://anki_description/meshes/rlw2.dae"/>
-    </geometry>
-  </visual>
-  <collision>
-    <geometry>
-      <mesh filename="package://anki_description/meshes/rlw2.dae"/>
-    </geometry>
-  </collision>
-</link>
+<xacro:front_wheel link_name="front_wheel_right">
+  <origin xyz="0.03 -0.024 -0.012"/>
+</xacro:front_wheel>
+
+<xacro:rear_wheel link_name="rear_left_wheel">
+  <origin xyz="-0.017 0.024 -0.0151707"/>
+</xacro:rear_wheel>
+
+<xacro:rear_wheel link_name="rear_right_wheel">
+  <origin xyz="-0.017 -0.024 -0.0151707"/>
+</xacro:rear_wheel>
+
 
 <!-- Belts -->
-<link name="left_belt">
+<!-- <link name="left_belt">
   <visual>
     <geometry>
       <mesh filename="package://anki_description/meshes/cozmo_belt.dae" />
     </geometry>
   </visual>
 </link>
+<joint name="wheel_left_belt" type="fixed">
+  <parent link="base_link"/>
+  <child link="left_belt"/>
+  <origin xyz="0.00945088 0.024 -0.0133211"/>
+</joint>
+
 <link name="right_belt">
   <visual>
     <geometry>
@@ -80,51 +103,15 @@
     </geometry>
   </visual>
 </link>
-
-<joint name="base_to_flw" type="continuous">
-  <parent link="base_link"/>
-  <child link="front_left_wheel"/>
-  <origin xyz="0.03 0.024 -0.012"/>
-  <axis xyz="0 1 0"/>
-</joint>
-
-<joint name="base_to_frw" type="continuous">
-  <parent link="base_link"/>
-  <child link="front_right_wheel"/>
-  <origin xyz="0.03 -0.024 -0.012"/>
-  <axis xyz="0 1 0"/>
-</joint>
-
-<joint name="base_to_rlw" type="continuous">
-  <parent link="base_link"/>
-  <child link="rear_left_wheel"/>
-  <origin xyz="-0.017 0.024 -0.0151707"/>
-  <axis xyz="0 1 0"/>
-</joint>
-
-<joint name="base_to_rrw" type="continuous">
-  <parent link="base_link"/>
-  <child link="rear_right_wheel"/>
-  <origin xyz="-0.017 -0.024 -0.0151707"/>
-  <axis xyz="0 1 0"/>
-</joint>
-
-<joint name="wheel_left_belt" type="fixed">
-  <parent link="base_link"/>
-  <child link="left_belt"/>
-  <origin xyz="0.00945088 0.024 -0.0133211"/>
-</joint>
-
 <joint name="wheel_right_belt" type="fixed">
   <parent link="base_link"/>
   <child link="right_belt"/>
   <origin xyz="0.00945088 -0.024 -0.0133211"/>
-</joint>
+</joint> -->
 
 
-<!-- ROS Control plugin for Gazebo -->
 
-<gazebo reference="rear_right_wheel">
+<!-- <gazebo reference="rear_right_wheel">
   <mu1>0.5</mu1>
   <mu2>0.5</mu2>
 </gazebo>
@@ -140,24 +127,24 @@
 <gazebo reference="front_left_wheel">
   <mu1>100000</mu1>
   <mu2>100000</mu2>
-</gazebo>
+</gazebo> -->
 
 
-<gazebo>
+<!-- <gazebo>
   <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
     <robotNamespace>/vector</robotNamespace>
     <legacyModeNS>true</legacyModeNS>
   </plugin>
-</gazebo>
+</gazebo> -->
 
 <gazebo>
   <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
     <updateRate>25.0</updateRate>
     <robotNamespace>/</robotNamespace>
-    <leftFrontJoint>base_to_flw</leftFrontJoint>
-    <rightFrontJoint>base_to_frw</rightFrontJoint>
-    <leftRearJoint>base_to_rlw</leftRearJoint>
-    <rightRearJoint>base_to_rrw</rightRearJoint>
+    <leftFrontJoint>front_left_wheel_joint</leftFrontJoint>
+    <rightFrontJoint>front_right_wheel_joint</rightFrontJoint>
+    <leftRearJoint>rear_left_wheel_joint</leftRearJoint>
+    <rightRearJoint>rear_right_wheel_joint</rightRearJoint>
     <wheelSeparation>0.048</wheelSeparation>
     <wheelDiameter>0.026281</wheelDiameter>
     <robotBaseFrame>base_footprint</robotBaseFrame>
