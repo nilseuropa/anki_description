@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>vector_description</name>
+  <name>anki_description</name>
   <version>1.0.0</version>
-  <description>Anki Vector Robot Description</description>
+  <description>Anki Robot Description</description>
   <maintainer email="marton@nowtech.hu">Marton Yuhaas</maintainer>
   <license>BSD-3 (code) and CC-BY-4.0 (XACRO, URDF, images, and STL models)</license>
   <url type="website">http://nowtech.hu</url>

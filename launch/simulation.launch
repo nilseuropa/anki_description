@@ -5,7 +5,7 @@
   <arg name="teleop" default="true"/>
 
   <!-- load model to parameter server and spwan for gazebo -->
-  <arg name="model" default="$(find vector_description)/urdf/robot.xacro"/>
+  <arg name="model" default="$(find anki_description)/urdf/vector.xacro"/>
   <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" args="-z 0.0 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" />
 
@@ -16,7 +16,7 @@
   <!-- launch gazebo -->
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find vector_description)/world/practice.world" if="$(arg load_world)"/>
+    <arg name="world_name" value="$(find anki_description)/world/practice.world" if="$(arg load_world)"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="$(arg gazebo_gui)"/>
@@ -33,7 +33,7 @@
    </node>
 
    <node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node">
-     <rosparam command="load" file="$(find vector_description)/params/airrow.config.yaml" />
+     <rosparam command="load" file="$(find anki_description)/params/airrow.config.yaml" />
    </node>
   </group>
 
