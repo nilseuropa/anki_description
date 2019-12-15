@@ -1,39 +1,16 @@
 <?xml version="1.0"?>
 <robot name="cozmo" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="cylinder_inertial" params="radius length mass">
-    <inertial>
-      <mass value="${mass}" />
-      <inertia ixx="${0.0833333 * mass * (3 * radius * radius + length * length)}" ixy="0.0" ixz="0.0"
-        izz="${0.0833333 * mass * (3 * radius * radius + length * length)}" iyz="0.0"
-        iyy="${0.5 * mass * radius * radius}" />
-    </inertial>
-  </xacro:macro>
+  <xacro:include filename="$(find anki_description)/urdf/base.xacro"/>
+  <xacro:include filename="$(find anki_description)/urdf/inertia.xacro"/>
 
-  <xacro:macro name="box_inertial" params="mass x y z">
-    <inertial>
-      <mass value="${mass}" />
-      <inertia  ixx="${mass*(y*y+z*z)/12}" ixy = "0" ixz = "0" iyy="${mass*(x*x+z*z)/12}" iyz = "0" izz="${mass*(x*x+z*z)/12}" />
-    </inertial>
-  </xacro:macro>
-
-    <xacro:macro name="box_inertial_default" params="mass">
-    <inertial>
-      <mass value="${mass}" />
-      <inertia  ixx="0.000001" ixy = "0" ixz = "0" iyy="0.000001" iyz = "0" izz="0.0000001" />
-    </inertial>
-  </xacro:macro>
-
-
-  <!-- LINKS ===========================  -->
   <link name="base_footprint"/>
   <joint name="base_footprint_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.0255"/>
+    <origin rpy="0 0 0" xyz="0 0 0.026"/>
     <parent link="base_footprint"/>
     <child link="base_link"/>
   </joint>
 
-  <!--chassis-->
   <link name="base_link">
     <xacro:box_inertial mass="0.06" x="0.073" y="0.043" z="0.061" />
     <visual>
@@ -44,70 +21,6 @@
     <collision>
       <geometry>
         <mesh filename="package://cozmo_description/meshes/body3.dae"  />
-      </geometry>
-    </collision>
-  </link>
-
-  <!--Front left wheel-->
-  <link name="front_left_wheel">
-    <xacro:cylinder_inertial mass="0.005" radius="0.01314" length="0.01167"/>
-    <visual>
-      <geometry>
-        <mesh filename="package://cozmo_description/meshes/flw2.dae"  />
-      </geometry>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0"
-              rpy="1.57 0 0"/>
-      <geometry>
-          <cylinder radius="${0.026281/2.0}" length="0.0116739"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <!--Front right wheel  -->
-  <link name="front_right_wheel">
-    <xacro:cylinder_inertial mass="0.005" radius="0.01314" length="0.01167"/>
-    <visual>
-      <geometry>
-        <mesh filename="package://cozmo_description/meshes/flw2.dae"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0"
-              rpy="1.57 0 0"/>
-      <geometry>
-          <cylinder radius="${0.026281/2.0}" length="0.0116739"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <!--Rear left wheel -->
-  <link name="rear_left_wheel">
-    <xacro:cylinder_inertial mass="0.005" radius="0.008995" length="0.01167"/>
-    <visual>
-      <geometry>
-        <mesh filename="package://cozmo_description/meshes/rlw2.dae" />
-      </geometry>
-    </visual>
-    <collision>
-      <geometry>
-        <mesh filename="package://cozmo_description/meshes/rlw2.dae"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <!--Rear right wheel -->
-  <link name="rear_right_wheel">
-    <xacro:cylinder_inertial mass="0.005" radius="0.008995" length="0.01167"/>
-    <visual>
-      <geometry>
-        <mesh filename="package://cozmo_description/meshes/rlw2.dae"/>
-      </geometry>
-    </visual>
-    <collision>
-      <geometry>
-        <mesh filename="package://cozmo_description/meshes/rlw2.dae"/>
       </geometry>
     </collision>
   </link>
@@ -142,24 +55,6 @@
     </collision>
   </link>
 
-  <!-- Belts -->
-  <link name="left_belt">
-    <xacro:box_inertial_default mass="0.0001"/>
-    <visual>
-      <geometry>
-        <mesh filename="package://cozmo_description/meshes/cozmo_belt.dae" />
-      </geometry>
-    </visual>
-  </link>
-  <link name="right_belt">
-    <xacro:box_inertial_default mass="0.0001"/>
-    <visual>
-      <geometry>
-        <mesh filename="package://cozmo_description/meshes/cozmo_belt.dae" />
-      </geometry>
-    </visual>
-  </link>
-
   <!-- sensors links -->
 
   <link name="camera_link">
@@ -188,34 +83,6 @@
 
   <!-- JOINTS ====================================-->
 
-  <joint name="base_to_flw" type="continuous">
-    <parent link="base_link"/>
-    <child link="front_left_wheel"/>
-    <origin xyz="0.03 0.024 -0.012"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-  <joint name="base_to_frw" type="continuous">
-    <parent link="base_link"/>
-    <child link="front_right_wheel"/>
-    <origin xyz="0.03 -0.024 -0.012"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-  <joint name="base_to_rlw" type="continuous">
-    <parent link="base_link"/>
-    <child link="rear_left_wheel"/>
-    <origin xyz="-0.017 0.024 -0.0151707"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-  <joint name="base_to_rrw" type="continuous">
-    <parent link="base_link"/>
-    <child link="rear_right_wheel"/>
-    <origin xyz="-0.017 -0.024 -0.0151707"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
 
   <joint name="base_to_head" type="revolute">
     <parent link="base_link"/>
@@ -234,18 +101,6 @@
     <limit lower="-0.8" upper="0" effort="5" velocity="10"/>
     <dynamics damping="0.0" friction="0.1"/>
     <axis xyz="0 1 0"/>
-  </joint>
-
-  <joint name="wheel_left_belt" type="fixed">
-    <parent link="base_link"/>
-    <child link="left_belt"/>
-    <origin xyz="0.00945088 0.024 -0.0133211"/>
-  </joint>
-
-  <joint name="wheel_right_belt" type="fixed">
-    <parent link="base_link"/>
-    <child link="right_belt"/>
-    <origin xyz="0.00945088 -0.024 -0.0133211"/>
   </joint>
 
   <joint name="head_camera_joint" type="fixed">

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <robot name="vector" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <!-- Inertia util -->
   <xacro:include filename="$(find anki_description)/urdf/inertia.xacro"/>
 
-  <!-- LINKS ===========================  -->
   <link name="base_footprint"/>
   <joint name="base_footprint_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.026"/>
@@ -11,8 +11,7 @@
     <child link="base_link"/>
   </joint>
 
-  <!--chassis-->
-
+  <!-- Body -->
   <link name="base_link">
     <xacro:box_inertial mass="0.06" x="0.073" y="0.043" z="0.061" />
     <visual>
@@ -23,70 +22,6 @@
     <collision>
       <geometry>
         <mesh filename="package://anki_description/meshes/vector_body.dae"  />
-      </geometry>
-    </collision>
-  </link>
-
-  <!--Front left wheel-->
-  <link name="front_left_wheel">
-    <xacro:cylinder_inertial mass="0.005" radius="0.01314" length="0.01167"/>
-    <visual>
-      <geometry>
-        <mesh filename="package://anki_description/meshes/flw2.dae"  />
-      </geometry>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0"
-              rpy="1.57 0 0"/>
-      <geometry>
-          <cylinder radius="${0.026281/2.0}" length="0.0116739"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <!--Front right wheel  -->
-  <link name="front_right_wheel">
-    <xacro:cylinder_inertial mass="0.005" radius="0.01314" length="0.01167"/>
-    <visual>
-      <geometry>
-        <mesh filename="package://anki_description/meshes/flw2.dae"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0"
-              rpy="1.57 0 0"/>
-      <geometry>
-          <cylinder radius="${0.026281/2.0}" length="0.0116739"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <!--Rear left wheel -->
-  <link name="rear_left_wheel">
-    <xacro:cylinder_inertial mass="0.005" radius="0.008995" length="0.01167"/>
-    <visual>
-      <geometry>
-        <mesh filename="package://anki_description/meshes/rlw2.dae" />
-      </geometry>
-    </visual>
-    <collision>
-      <geometry>
-        <mesh filename="package://anki_description/meshes/rlw2.dae"/>
-      </geometry>
-    </collision>
-  </link>
-
-  <!--Rear right wheel -->
-  <link name="rear_right_wheel">
-    <xacro:cylinder_inertial mass="0.005" radius="0.008995" length="0.01167"/>
-    <visual>
-      <geometry>
-        <mesh filename="package://anki_description/meshes/rlw2.dae"/>
-      </geometry>
-    </visual>
-    <collision>
-      <geometry>
-        <mesh filename="package://anki_description/meshes/rlw2.dae"/>
       </geometry>
     </collision>
   </link>
@@ -121,162 +56,8 @@
     </collision>
   </link>
 
-  <!-- Belts -->
-  <link name="left_belt">
-    <visual>
-      <geometry>
-        <mesh filename="package://anki_description/meshes/cozmo_belt.dae" />
-      </geometry>
-    </visual>
-  </link>
-  <link name="right_belt">
-    <visual>
-      <geometry>
-        <mesh filename="package://anki_description/meshes/cozmo_belt.dae" />
-      </geometry>
-    </visual>
-  </link>
-
-  <!-- JOINTS ====================================-->
-
-  <joint name="base_to_flw" type="continuous">
-    <parent link="base_link"/>
-    <child link="front_left_wheel"/>
-    <origin xyz="0.03 0.024 -0.012"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-  <joint name="base_to_frw" type="continuous">
-    <parent link="base_link"/>
-    <child link="front_right_wheel"/>
-    <origin xyz="0.03 -0.024 -0.012"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-  <joint name="base_to_rlw" type="continuous">
-    <parent link="base_link"/>
-    <child link="rear_left_wheel"/>
-    <origin xyz="-0.017 0.024 -0.0151707"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-  <joint name="base_to_rrw" type="continuous">
-    <parent link="base_link"/>
-    <child link="rear_right_wheel"/>
-    <origin xyz="-0.017 -0.024 -0.0151707"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-
-  <joint name="base_to_head" type="revolute">
-    <parent link="base_link"/>
-    <child link="head"/>
-    <origin xyz="0.0174507 0 0.022003"/>
-    <limit lower="-0.52" upper="0.17" effort="100" velocity="10"/>
-    <!-- Dampning break the model, keep it 0.0 -->
-    <dynamics damping="0.0" friction="0.1"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-  <joint name="base_to_lift" type="revolute">
-    <parent link="base_link"/>
-    <child link="full_lift"/>
-    <origin xyz="-0.005 0 0.013"/>
-    <limit lower="-0.8" upper="0" effort="5" velocity="10"/>
-    <dynamics damping="0.0" friction="0.1"/>
-    <axis xyz="0 1 0"/>
-  </joint>
-
-  <joint name="wheel_left_belt" type="fixed">
-    <parent link="base_link"/>
-    <child link="left_belt"/>
-    <origin xyz="0.00945088 0.024 -0.0133211"/>
-  </joint>
-
-  <joint name="wheel_right_belt" type="fixed">
-    <parent link="base_link"/>
-    <child link="right_belt"/>
-    <origin xyz="0.00945088 -0.024 -0.0133211"/>
-  </joint>
-
-  <gazebo reference="rear_right_wheel">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-  </gazebo>
-  <gazebo reference="rear_left_wheel">
-    <mu1>0.5</mu1>
-    <mu2>0.5</mu2>
-  </gazebo>
-
-<gazebo reference="front_right_wheel">
-    <mu1>100000</mu1>
-    <mu2>100000</mu2>
-  </gazebo>
-  <gazebo reference="front_left_wheel">
-    <mu1>100000</mu1>
-    <mu2>100000</mu2>
-  </gazebo>
-
-  <gazebo reference="head">
-      <kp>1000000000.0</kp>
-      <kd>1000000000.0</kd>
-      <mu1>10.0</mu1>
-      <mu2>10.0</mu2>
-      <self_collide>0</self_collide>
-  </gazebo>
-
-  <!-- Transmissions for joints -->
-
-  <transmission name="base_to_head_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="base_to_head">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="base_to_headMotor">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-  </transmission>
-
-  <transmission name="base_to_lift_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="base_to_lift">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="base_to_liftMotor">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        <mechanicalReduction>1</mechanicalReduction>
-      </actuator>
-  </transmission>
-
-  <!-- ROS Control plugin for Gazebo -->
-  <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/vector</robotNamespace>
-      <legacyModeNS>true</legacyModeNS>
-    </plugin>
-  </gazebo>
-
-
-  <gazebo>
-  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-    <updateRate>25.0</updateRate>
-    <robotNamespace>/</robotNamespace>
-    <leftFrontJoint>base_to_flw</leftFrontJoint>
-    <rightFrontJoint>base_to_frw</rightFrontJoint>
-    <leftRearJoint>base_to_rlw</leftRearJoint>
-    <rightRearJoint>base_to_rrw</rightRearJoint>
-    <wheelSeparation>0.048</wheelSeparation>
-    <wheelDiameter>0.026281</wheelDiameter>
-    <robotBaseFrame>base_link</robotBaseFrame>
-    <torque>20</torque>
-    <topicName>cmd_vel</topicName>
-    <commandTopic>cmd_vel</commandTopic>
-    <odometryTopic>odom</odometryTopic>
-    <odometryFrame>odom</odometryFrame>
-    <broadcastTF>1</broadcastTF>
-  </plugin>
-  </gazebo>
-
+  <!-- Simulation -->
+  <xacro:include filename="$(find anki_description)/urdf/joints.xacro"/>
+  <xacro:include filename="$(find anki_description)/urdf/base.xacro"/>
 
 </robot>
