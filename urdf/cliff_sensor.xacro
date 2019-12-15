@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 <xacro:macro name="cliff" params="link_name pos_x pos_y pos_z">
-  <link name="${link_name}">
+  <link name="${link_name}_cliff">
       <visual>
           <geometry>
               <box size="0.001 0.001 0.001"/>
           </geometry>
       </visual>
   </link>
-  <joint name="${link_name}_joint" type="fixed">
+  <joint name="${link_name}_cliff_joint" type="fixed">
       <parent link="base_link"/>
-      <child link="${link_name}"/>
+      <child link="${link_name}_cliff"/>
       <origin rpy="0 ${pi/2} 0" xyz="${pos_x} ${pos_y} ${pos_z}"/>
   </joint>
 
-  <gazebo reference="${link_name}">
-      <sensor type="ray" name="${link_name}">
+  <gazebo reference="${link_name}_cliff">
+      <sensor type="ray" name="${link_name}_cliff">
           <pose>0 0 0 0 0 0</pose>
           <visualize>false</visualize>
           <update_rate>5.0</update_rate>
@@ -47,7 +47,7 @@
           </ray>
           <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
               <gaussianNoise>0.01</gaussianNoise>
-              <topicName>/cliff/${link_name}</topicName>
+              <topicName>/vector/cliff/${link_name}</topicName>
               <frameName>${link_name}</frameName>
               <radiation>INFRARED</radiation>
               <updateRate>5</updateRate>
