@@ -25,7 +25,14 @@
       </geometry>
     </collision>
   </link>
-
+  <gazebo reference="base_link">
+      <selfCollide>true</selfCollide>
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+  </gazebo>
+  
   <!-- Head -->
   <link name="head">
     <xacro:box_inertial mass="0.01" x="0.036" y="0.038" z="0.041" />
