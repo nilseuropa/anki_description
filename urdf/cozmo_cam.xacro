@@ -40,7 +40,7 @@
           <alwaysOn>true</alwaysOn>
           <updateRate>10.0</updateRate>
           <cameraName>cozmo_camera</cameraName>
-          <imageTopicName>/cozmo/image</imageTopicName>
+          <imageTopicName>/cozmo/camera</imageTopicName>
           <cameraInfoTopicName>/cozmo/camera_info</cameraInfoTopicName>
           <frameName>camera_link</frameName>
           <hackBaseline>0.07</hackBaseline>

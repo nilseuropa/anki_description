@@ -1,22 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <link name="tof_link">
-      <visual>
-          <geometry>
-              <box size="0.001 0.001 0.001"/>
-          </geometry>
-      </visual>
-      <collision>
-          <geometry>
-              <box size="0.001 0.001 0.001"/>
-          </geometry>
-      </collision>
-  </link>
+  <xacro:property name="field_of_view" value="0.02"/>
+
+  <link name="tof_link"/>
   <joint name="tof_joint" type="fixed">
       <parent link="base_link"/>
       <child link="tof_link"/>
-      <origin rpy="0 0 0" xyz="0.022 0 0.03"/>
+      <origin rpy="0 0 0" xyz="0.042 0 -0.005"/>
   </joint>
 
   <gazebo reference="tof_link">
@@ -29,25 +20,25 @@
                   <horizontal>
                       <samples>4</samples>
                       <resolution>1</resolution>
-                      <min_angle>-0.001</min_angle>
-                      <max_angle>0.001</max_angle>
+                      <min_angle>${-field_of_view/2}</min_angle>
+                      <max_angle>${field_of_view/2}</max_angle>
                   </horizontal>
                   <vertical>
                       <samples>4</samples>
                       <resolution>1</resolution>
-                      <min_angle>-0.001</min_angle>
-                      <max_angle>0.001</max_angle>
+                      <min_angle>${-field_of_view/2}</min_angle>
+                      <max_angle>${field_of_view/2}</max_angle>
                   </vertical>
               </scan>
               <range>
                   <min>0.0</min>
-                  <max>0.3</max>
+                  <max>0.4</max>
                   <resolution>0.01</resolution>
               </range>
               <noise>
                 <type>gaussian</type>
                 <mean>0.01</mean>
-                <stddev>0.04</stddev>
+                <stddev>0.01</stddev>
               </noise>
           </ray>
           <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
@@ -56,7 +47,7 @@
               <frameName>tof_link</frameName>
               <radiation>INFRARED</radiation>
               <updateRate>20</updateRate>
-              <fov>0.2617993878</fov>
+              <fov>${field_of_view}</fov>
           </plugin>
       </sensor>
   </gazebo>

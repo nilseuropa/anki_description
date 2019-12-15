@@ -1,18 +1,28 @@
 <launch>
 
-  <arg name="ankirobot" default="vector"/>
+  <arg name="robot_type" default="vector"/>
   <arg name="gazebo_gui" default="true"/>
   <arg name="load_world" default="false"/>
   <arg name="teleop" default="true"/>
 
   <!-- load model to parameter server and spwan for gazebo -->
-  <arg name="model" default="$(find anki_description)/urdf/$(arg ankirobot).xacro"/>
+  <arg name="model" default="$(find anki_description)/urdf/$(arg robot_type).xacro"/>
   <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" args="-z 0.0 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" />
 
   <!-- state publishers -->
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+  <rosparam file="$(find anki_description)/config/$(arg robot_type)_config.yaml" command="load"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+		respawn="false" output="screen">
+		<remap from="/joint_states" to="/$(arg robot_type)/joint_states" />
+			<param name="publish_frequency" type="double" value="5.0" />
+		</node>
+
+  <!-- TODO: doublecheck controller interface -->
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" ns="$(arg robot_type)"
+		output="screen" args="joint_state_controller head_angle lift_height">
+	</node>
 
   <!-- launch gazebo -->
 

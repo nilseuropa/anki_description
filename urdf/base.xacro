@@ -4,12 +4,14 @@
   <xacro:macro name="wheel" params="link_name *origin radius">
     <link name="${link_name}">
       <visual>
+        <material name="black"/>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
           <cylinder radius="${radius}" length="0.0116739"/>
         </geometry>
       </visual>
       <collision>
+        <material name="black"/>
         <origin rpy="0 0 0" xyz="0 0 0"/>
         <geometry>
             <cylinder radius="${radius}" length="0.0116739"/>
@@ -33,6 +35,13 @@
             <mechanicalReduction>30</mechanicalReduction>
         </actuator>
     </transmission>
+    <!-- <gazebo reference="${link_name}">
+      <selfCollide>true</selfCollide>
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+    </gazebo> -->
   </xacro:macro>
 
 <xacro:wheel link_name="front_left_wheel" radius="0.01314">

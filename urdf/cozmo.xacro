@@ -6,7 +6,7 @@
 
   <link name="base_footprint"/>
   <joint name="base_footprint_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.026"/>
+    <origin rpy="0 0 0" xyz="0 0 0.027"/>
     <parent link="base_footprint"/>
     <child link="base_link"/>
   </joint>
@@ -77,6 +77,6 @@
   <xacro:include filename="$(find anki_description)/urdf/cozmo_cam.xacro"/>
   <xacro:include filename="$(find anki_description)/urdf/cozmo_drop.xacro"/>
   <xacro:include filename="$(find anki_description)/urdf/imu.xacro"/>
-  <xacro:imu name="cozmo"/>
+  <xacro:imu ankirobot="cozmo"/>
 
 </robot>
