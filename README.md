@@ -1,4 +1,4 @@
-# Anki Vector and Cozmo#
+# Anki Vector and Cozmo #
 ### Universal Robot Description Files ###
 
 ![](doc/cozmo.gif)
@@ -19,4 +19,4 @@ To switch between Cozmo and Anki models change `robot_type` argument to:
   - Cliff sensor: libgazebo_ros_range _( 1 for Cozmo 4 for Vector)_
   - NIR-TOF: libgazebo_ros_range _(Vector only)_
 
-<img src="doc/rviz.png" width="640">
+<img src="doc/rviz.png">
