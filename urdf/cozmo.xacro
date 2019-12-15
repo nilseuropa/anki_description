@@ -77,5 +77,6 @@
   <xacro:include filename="$(find anki_description)/urdf/cozmo_cam.xacro"/>
   <xacro:include filename="$(find anki_description)/urdf/cozmo_drop.xacro"/>
   <xacro:include filename="$(find anki_description)/urdf/imu.xacro"/>
+  <xacro:imu name="cozmo"/>
 
 </robot>

@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+<xacro:macro name="imu" params="ankirobot">
   <link name="imu"/>
 
   <joint name="imu_joint" type="fixed">
@@ -15,9 +16,9 @@
       <always_on>true</always_on>
       <update_rate>100</update_rate>
       <visualize>true</visualize>
-      <topic>__default_topic__</topic>
+      <topic>${ankirobot}/imu</topic>
       <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-        <topicName>imu</topicName>
+        <topicName>${ankirobot}/imu</topicName>
         <bodyName>imu</bodyName>
         <updateRateHZ>10.0</updateRateHZ>
         <gaussianNoise>${0.0017*0.0017}</gaussianNoise>
@@ -28,5 +29,6 @@
       <pose>0 0 0 0 0 0</pose>
     </sensor>
   </gazebo>
+</xacro:macro>
 
 </robot>

@@ -75,7 +75,8 @@
   <xacro:include filename="$(find anki_description)/urdf/base.xacro"/>
   <xacro:include filename="$(find anki_description)/urdf/vector_cam.xacro"/>
   <xacro:include filename="$(find anki_description)/urdf/vector_drop.xacro"/>
-  <xacro:include filename="$(find anki_description)/urdf/imu.xacro"/>
   <xacro:include filename="$(find anki_description)/urdf/laser.xacro"/>
+  <xacro:include filename="$(find anki_description)/urdf/imu.xacro"/>
+  <xacro:imu ankirobot="vector"/>
 
 </robot>

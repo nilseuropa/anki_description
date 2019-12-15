@@ -1,195 +1,66 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <link name="drop_ir_fl">
-    </link>
+  <xacro:macro name="drop_sensor" params="link_name *origin">
+    <link name="${link_name}"/>
+    <joint name="${link_name}_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="${link_name}"/>
+        <xacro:insert_block name="origin"/>
+    </joint>
+    <gazebo reference="${link_name}">
+     <sensor type="ray" name="ranger">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>50</update_rate>
+        <ray>
+           <scan>
+              <horizontal>
+                 <samples>10</samples>
+                 <resolution>1</resolution>
+                 <min_angle>-0.14835</min_angle>
+                 <max_angle>0.14835</max_angle>
+              </horizontal>
+              <vertical>
+                 <samples>10</samples>
+                 <resolution>1</resolution>
+                 <min_angle>-0.14835</min_angle>
+                 <max_angle>0.14835</max_angle>
+              </vertical>
+           </scan>
+           <range>
+              <min>0.001</min>
+              <max>0.02</max>
+              <resolution>0.02</resolution>
+           </range>
+        </ray>
+        <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+           <gaussianNoise>0.005</gaussianNoise>
+           <alwaysOn>true</alwaysOn>
+           <updateRate>50</updateRate>
+           <topicName>/vector/${link_name}</topicName>
+           <frameName>${link_name}</frameName>
+           <radiation>INFRARED</radiation>
+           <fov>0.2967</fov>
+        </plugin>
+     </sensor>
+     </gazebo>
+  </xacro:macro>
 
-    <link name="drop_ir_fr">
-    </link>
-
-    <link name="drop_ir_rl">
-    </link>
-
-    <link name="drop_ir_rr">
-    </link>
-    
-  <joint name="drop_ir_fl_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="drop_ir_fl"/>
+  <xacro:drop_sensor link_name="drop_fl">
     <origin xyz="0.0351028 0.01 -0.0213898" rpy="0 1.57 0" />
-  </joint>
+  </xacro:drop_sensor>
 
-  <joint name="drop_ir_fr_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="drop_ir_fr"/>
+  <xacro:drop_sensor link_name="drop_fr">
     <origin xyz="0.0351028 -0.01 -0.0213898" rpy="0 1.57 0" />
-  </joint>
+  </xacro:drop_sensor>
 
-  <joint name="drop_ir_rl_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="drop_ir_rl"/>
+  <xacro:drop_sensor link_name="drop_rl">
     <origin xyz="-0.02 0.01 -0.0213898" rpy="0 1.57 0" />
-  </joint>
+  </xacro:drop_sensor>
 
-  <joint name="drop_ir_rr_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="drop_ir_rr"/>
+  <xacro:drop_sensor link_name="drop_rr">
     <origin xyz="-0.02 -0.01 -0.0213898" rpy="0 1.57 0" />
-  </joint>
-
-  <gazebo reference="drop_ir_fl">
-   <sensor type="ray" name="TeraRanger">
-      <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
-      <update_rate>50</update_rate>
-      <ray>
-         <scan>
-            <horizontal>
-               <samples>10</samples>
-               <resolution>1</resolution>
-               <min_angle>-0.14835</min_angle>
-               <max_angle>0.14835</max_angle>
-            </horizontal>
-            <vertical>
-               <samples>10</samples>
-               <resolution>1</resolution>
-               <min_angle>-0.14835</min_angle>
-               <max_angle>0.14835</max_angle>
-            </vertical>
-         </scan>
-         <range>
-            <min>0.01</min>
-            <max>2</max>
-            <resolution>0.02</resolution>
-         </range>
-      </ray>
-      <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
-         <gaussianNoise>0.005</gaussianNoise>
-         <alwaysOn>true</alwaysOn>
-         <updateRate>50</updateRate>
-         <topicName>drop_sensor_fl</topicName>
-         <frameName>drop_ir_fl</frameName>
-         <radiation>INFRARED</radiation>
-         <fov>0.2967</fov>
-      </plugin>
-   </sensor>
-   </gazebo>
-
-
-  <gazebo reference="drop_ir_fr">
-   <sensor type="ray" name="TeraRanger">
-      <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
-      <update_rate>50</update_rate>
-      <ray>
-         <scan>
-            <horizontal>
-               <samples>10</samples>
-               <resolution>1</resolution>
-               <min_angle>-0.14835</min_angle>
-               <max_angle>0.14835</max_angle>
-            </horizontal>
-            <vertical>
-               <samples>10</samples>
-               <resolution>1</resolution>
-               <min_angle>-0.14835</min_angle>
-               <max_angle>0.14835</max_angle>
-            </vertical>
-         </scan>
-         <range>
-            <min>0.01</min>
-            <max>2</max>
-            <resolution>0.02</resolution>
-         </range>
-      </ray>
-      <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
-         <gaussianNoise>0.005</gaussianNoise>
-         <alwaysOn>true</alwaysOn>
-         <updateRate>50</updateRate>
-         <topicName>drop_sensor_fr</topicName>
-         <frameName>drop_ir_fr</frameName>
-         <radiation>INFRARED</radiation>
-         <fov>0.2967</fov>
-      </plugin>
-   </sensor>
-   </gazebo>
-
-
-  <gazebo reference="drop_ir_rl">
-   <sensor type="ray" name="TeraRanger">
-      <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
-      <update_rate>50</update_rate>
-      <ray>
-         <scan>
-            <horizontal>
-               <samples>10</samples>
-               <resolution>1</resolution>
-               <min_angle>-0.14835</min_angle>
-               <max_angle>0.14835</max_angle>
-            </horizontal>
-            <vertical>
-               <samples>10</samples>
-               <resolution>1</resolution>
-               <min_angle>-0.14835</min_angle>
-               <max_angle>0.14835</max_angle>
-            </vertical>
-         </scan>
-         <range>
-            <min>0.01</min>
-            <max>2</max>
-            <resolution>0.02</resolution>
-         </range>
-      </ray>
-      <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
-         <gaussianNoise>0.005</gaussianNoise>
-         <alwaysOn>true</alwaysOn>
-         <updateRate>50</updateRate>
-         <topicName>drop_sensor_rl</topicName>
-         <frameName>drop_ir_rl</frameName>
-         <radiation>INFRARED</radiation>
-         <fov>0.2967</fov>
-      </plugin>
-   </sensor>
-   </gazebo>
-
-
-  <gazebo reference="drop_ir_rr">
-   <sensor type="ray" name="TeraRanger">
-      <pose>0 0 0 0 0 0</pose>
-      <visualize>true</visualize>
-      <update_rate>50</update_rate>
-      <ray>
-         <scan>
-            <horizontal>
-               <samples>10</samples>
-               <resolution>1</resolution>
-               <min_angle>-0.14835</min_angle>
-               <max_angle>0.14835</max_angle>
-            </horizontal>
-            <vertical>
-               <samples>10</samples>
-               <resolution>1</resolution>
-               <min_angle>-0.14835</min_angle>
-               <max_angle>0.14835</max_angle>
-            </vertical>
-         </scan>
-         <range>
-            <min>0.01</min>
-            <max>2</max>
-            <resolution>0.02</resolution>
-         </range>
-      </ray>
-      <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
-         <gaussianNoise>0.005</gaussianNoise>
-         <alwaysOn>true</alwaysOn>
-         <updateRate>50</updateRate>
-         <topicName>drop_sensor_rr</topicName>
-         <frameName>drop_ir_rr</frameName>
-         <radiation>INFRARED</radiation>
-         <fov>0.2967</fov>
-      </plugin>
-   </sensor>
-   </gazebo>
+  </xacro:drop_sensor>
 
 </robot>
