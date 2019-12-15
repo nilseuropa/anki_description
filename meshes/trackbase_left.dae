@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 2.79.0 commit date:2018-03-22, commit time:14:10, hash:f4dc9f9</authoring_tool>
+    </contributor>
+    <created>2019-02-19T11:40:11</created>
+    <modified>2019-02-19T11:40:11</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_cameras>
+    <camera id="Camera-camera" name="Camera">
+      <optics>
+        <technique_common>
+          <perspective>
+            <xfov sid="xfov">49.13434</xfov>
+            <aspect_ratio>1.777778</aspect_ratio>
+            <znear sid="znear">0.1</znear>
+            <zfar sid="zfar">100</zfar>
+          </perspective>
+        </technique_common>
+      </optics>
+      <extra>
+        <technique profile="blender">
+          <shiftx sid="shiftx" type="float">0</shiftx>
+          <shifty sid="shifty" type="float">0</shifty>
+          <YF_dofdist sid="YF_dofdist" type="float">0</YF_dofdist>
+        </technique>
+      </extra>
+    </camera>
+  </library_cameras>
+  <library_lights>
+    <light id="Lamp-light" name="Lamp">
+      <technique_common>
+        <point>
+          <color sid="color">1 1 1</color>
+          <constant_attenuation>1</constant_attenuation>
+          <linear_attenuation>0</linear_attenuation>
+          <quadratic_attenuation>0.00111109</quadratic_attenuation>
+        </point>
+      </technique_common>
+      <extra>
+        <technique profile="blender">
+          <type sid="type" type="int">0</type>
+          <flag sid="flag" type="int">0</flag>
+          <mode sid="mode" type="int">8192</mode>
+          <gamma sid="blender_gamma" type="float">1</gamma>
+          <red sid="red" type="float">1</red>
+          <green sid="green" type="float">1</green>
+          <blue sid="blue" type="float">1</blue>
+          <shadow_r sid="blender_shadow_r" type="float">0</shadow_r>
+          <shadow_g sid="blender_shadow_g" type="float">0</shadow_g>
+          <shadow_b sid="blender_shadow_b" type="float">0</shadow_b>
+          <energy sid="blender_energy" type="float">1</energy>
+          <dist sid="blender_dist" type="float">29.99998</dist>
+          <spotsize sid="spotsize" type="float">75</spotsize>
+          <spotblend sid="spotblend" type="float">0.15</spotblend>
+          <halo_intensity sid="blnder_halo_intensity" type="float">1</halo_intensity>
+          <att1 sid="att1" type="float">0</att1>
+          <att2 sid="att2" type="float">1</att2>
+          <falloff_type sid="falloff_type" type="int">2</falloff_type>
+          <clipsta sid="clipsta" type="float">1.000799</clipsta>
+          <clipend sid="clipend" type="float">30.002</clipend>
+          <bias sid="bias" type="float">1</bias>
+          <soft sid="soft" type="float">3</soft>
+          <compressthresh sid="compressthresh" type="float">0.04999995</compressthresh>
+          <bufsize sid="bufsize" type="int">2880</bufsize>
+          <samp sid="samp" type="int">3</samp>
+          <buffers sid="buffers" type="int">1</buffers>
+          <filtertype sid="filtertype" type="int">0</filtertype>
+          <bufflag sid="bufflag" type="int">0</bufflag>
+          <buftype sid="buftype" type="int">2</buftype>
+          <ray_samp sid="ray_samp" type="int">1</ray_samp>
+          <ray_sampy sid="ray_sampy" type="int">1</ray_sampy>
+          <ray_sampz sid="ray_sampz" type="int">1</ray_sampz>
+          <ray_samp_type sid="ray_samp_type" type="int">0</ray_samp_type>
+          <area_shape sid="area_shape" type="int">1</area_shape>
+          <area_size sid="area_size" type="float">0.1</area_size>
+          <area_sizey sid="area_sizey" type="float">0.1</area_sizey>
+          <area_sizez sid="area_sizez" type="float">1</area_sizez>
+          <adapt_thresh sid="adapt_thresh" type="float">0.000999987</adapt_thresh>
+          <ray_samp_method sid="ray_samp_method" type="int">1</ray_samp_method>
+          <shadhalostep sid="shadhalostep" type="int">0</shadhalostep>
+          <sun_effect_type sid="sun_effect_type" type="int">0</sun_effect_type>
+          <skyblendtype sid="skyblendtype" type="int">1</skyblendtype>
+          <horizon_brightness sid="horizon_brightness" type="float">1</horizon_brightness>
+          <spread sid="spread" type="float">1</spread>
+          <sun_brightness sid="sun_brightness" type="float">1</sun_brightness>
+          <sun_size sid="sun_size" type="float">1</sun_size>
+          <backscattered_light sid="backscattered_light" type="float">1</backscattered_light>
+          <sun_intensity sid="sun_intensity" type="float">1</sun_intensity>
+          <atm_turbidity sid="atm_turbidity" type="float">2</atm_turbidity>
+          <atm_extinction_factor sid="atm_extinction_factor" type="float">1</atm_extinction_factor>
+          <atm_distance_factor sid="atm_distance_factor" type="float">1</atm_distance_factor>
+          <skyblendfac sid="skyblendfac" type="float">1</skyblendfac>
+          <sky_exposure sid="sky_exposure" type="float">1</sky_exposure>
+          <sky_colorspace sid="sky_colorspace" type="int">0</sky_colorspace>
+        </technique>
+      </extra>
+    </light>
+  </library_lights>
+  <library_images/>
+  <library_effects>
+    <effect id="blinn4SG-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.7 0.7 0.7 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.25 0.25 0.25 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">6</float>
+            </shininess>
+            <transparent opaque="A_ONE">
+              <color>1 1 1 0</color>
+            </transparent>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="blinn4SG-material" name="blinn4SG">
+      <instance_effect url="#blinn4SG-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="trackBase_L_geo-mesh" name="trackBase_L_geo">
+      <mesh>
+        <source id="trackBase_L_geo-mesh-positions">
+          <float_array id="trackBase_L_geo-mesh-positions-array" count="60">1.596351 0.5822525 -0.8938096 1.269023 0.5822525 -0.4609856 1.269023 -0.5851505 -0.4609856 1.596351 -0.5851505 -0.8938096 -1.495266 0.5822525 0.6993564 -1.495266 -0.5851505 0.6993564 1.32027 -0.5851505 1.146865 1.32027 0.5822525 1.146865 -1.235755 0.5822525 -0.5809746 -1.53771 0.5822525 -0.8938096 -1.53771 -0.5851505 -0.8938096 -1.235755 -0.5851505 -0.5809746 1.048953 0.5822525 0.09344947 -1.168871 0.5822525 -0.01871657 -1.304888 0.5822525 0.4380494 1.062935 0.5822525 0.6265514 -1.168871 -0.5851505 -0.01871657 -1.304888 -0.5851505 0.4380494 1.062935 -0.5851505 0.6265514 0.9256251 -0.5851505 0.09344947</float_array>
+          <technique_common>
+            <accessor source="#trackBase_L_geo-mesh-positions-array" count="20" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="trackBase_L_geo-mesh-normals">
+          <float_array id="trackBase_L_geo-mesh-normals-array" count="114">0.5874286 0.7386499 0.3306422 0.7473208 -0.5507168 -0.3717834 0.7473208 0.5507168 -0.3717834 -0.1569723 0 0.987603 -0.7703356 0.5473622 -0.3270745 -0.5580497 -0.7864274 0.2647875 -0.5580497 0.7864274 0.2647875 0 0 -1 0 -1 -1.75761e-7 0 1 -1.75761e-7 0 1 1.6406e-7 -0.6525864 0.7556489 -0.05591064 -0.5955876 -0.7472695 -0.2947266 -0.5955876 0.7472695 -0.2947266 0 -1 -1.68728e-7 0.6549729 0.7466526 0.1162782 0.6329393 -0.7442126 -0.2133908 0.5451942 -0.8343936 0.08093678 0 1 0 -0.6525864 -0.7556489 -0.05591064 0 -1 -1.66733e-7 0.5747408 -0.7288331 0.3721227 0 1 0 -0.767894 -0.556518 0.3172168 -0.767894 0.556518 0.3172168 0 -1 0 0.6717026 0.5516695 0.4944456 0.6321997 0.7588227 -0.1565621 -0.1569724 0 0.9876031 -0.7703356 -0.5473622 -0.3270745 0 -1 4.3865e-7 0 1 3.19018e-7 0 1 -2.15338e-7 0 -1 0 0 -1 0 0 1 2.73159e-7 0 -1 3.64212e-7 0.6717026 -0.5516695 0.4944456</float_array>
+          <technique_common>
+            <accessor source="#trackBase_L_geo-mesh-normals-array" count="38" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="trackBase_L_geo-mesh-map-0">
+          <float_array id="trackBase_L_geo-mesh-map-0-array" count="216">0.375 0.067294 0.625 0 0.375 0 0.625 0.5 0.375 0.25 0.375 0.5 0.375 0.75 0.625 0.695127 0.375 0.695127 0.625 0.75 0.375 1 0.625 1 0.625 0.067294 0.875 0 0.625 0 0.125 0 0.375 0.067294 0.375 0 0.125 0.153497 0.375 0.202335 0.375 0.153497 0.375 0.596503 0.625 0.525958 0.375 0.525958 0.875 0.2240419 0.625 0.153497 0.625 0.202335 0.375 0.153497 0.625 0.202335 0.625 0.153497 0.125 0.05487293 0.375 0.153497 0.375 0.067294 0.375 0.695127 0.625 0.596503 0.375 0.596503 0.625 0.153497 0.875 0.05487293 0.625 0.067294 0.375 0.153497 0.625 0.067294 0.375 0.067294 0.375 0.202335 0.125 0.25 0.375 0.25 0.375 0.525958 0.625 0.5 0.375 0.5 0.875 0.25 0.625 0.202335 0.625 0.25 0.375 0.25 0.625 0.202335 0.375 0.202335 0.375 0.067294 0.625 0.067294 0.625 0 0.625 0.5 0.625 0.25 0.375 0.25 0.375 0.75 0.625 0.75 0.625 0.695127 0.625 0.75 0.375 0.75 0.375 1 0.625 0.067294 0.875 0.05487293 0.875 0 0.125 0 0.125 0.05487293 0.375 0.067294 0.125 0.153497 0.125 0.2240419 0.375 0.202335 0.375 0.596503 0.625 0.596503 0.625 0.525958 0.875 0.2240419 0.875 0.153497 0.625 0.153497 0.375 0.153497 0.375 0.202335 0.625 0.202335 0.125 0.05487293 0.125 0.153497 0.375 0.153497 0.375 0.695127 0.625 0.695127 0.625 0.596503 0.625 0.153497 0.875 0.153497 0.875 0.05487293 0.375 0.153497 0.625 0.153497 0.625 0.067294 0.375 0.202335 0.125 0.2240419 0.125 0.25 0.375 0.525958 0.625 0.525958 0.625 0.5 0.875 0.25 0.875 0.2240419 0.625 0.202335 0.375 0.25 0.625 0.25 0.625 0.202335</float_array>
+          <technique_common>
+            <accessor source="#trackBase_L_geo-mesh-map-0-array" count="108" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="trackBase_L_geo-mesh-vertices">
+          <input semantic="POSITION" source="#trackBase_L_geo-mesh-positions"/>
+        </vertices>
+        <triangles material="blinn4SG-material" count="36">
+          <input semantic="VERTEX" source="#trackBase_L_geo-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#trackBase_L_geo-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#trackBase_L_geo-mesh-map-0" offset="2" set="0"/>
+          <p>1 0 0 3 1 1 0 2 2 5 3 3 7 3 4 4 3 5 9 4 6 11 5 7 8 6 8 10 7 9 0 7 10 3 7 11 2 8 12 10 8 13 3 8 14 9 9 15 1 9 16 0 9 17 13 10 18 15 10 19 12 10 20 13 11 21 17 12 22 14 13 23 17 14 24 19 14 25 18 14 26 12 15 27 18 16 28 19 17 29 8 18 30 12 18 31 1 18 32 8 6 33 16 19 34 13 11 35 19 20 36 11 20 37 2 20 38 12 15 39 2 21 40 1 0 41 15 22 42 4 22 43 7 22 44 14 13 45 5 23 46 4 24 47 5 25 48 18 25 49 6 25 50 7 26 51 18 16 52 15 27 53 1 0 54 2 21 55 3 1 56 5 28 57 6 28 58 7 28 59 9 4 60 10 29 61 11 5 62 10 7 63 9 7 64 0 7 65 2 30 66 11 30 67 10 30 68 9 31 69 8 31 70 1 31 71 13 32 72 14 32 73 15 32 74 13 11 75 16 19 76 17 12 77 17 33 78 16 33 79 19 33 80 12 15 81 15 27 82 18 16 83 8 22 84 13 22 85 12 22 86 8 6 87 11 5 88 16 19 89 19 34 90 16 34 91 11 34 92 12 15 93 19 17 94 2 21 95 15 35 96 14 35 97 4 35 98 14 13 99 17 12 100 5 23 101 5 36 102 17 36 103 18 36 104 7 26 105 6 37 106 18 16 107</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers/>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="Camera" name="Camera" type="NODE">
+        <matrix sid="transform">0.6859207 -0.3240135 0.6515582 7.481132 0.7276763 0.3054208 -0.6141704 -6.50764 0 0.8953956 0.4452714 5.343665 0 0 0 1</matrix>
+        <instance_camera url="#Camera-camera"/>
+      </node>
+      <node id="Lamp" name="Lamp" type="NODE">
+        <matrix sid="transform">-0.2908646 -0.7711008 0.5663932 4.076245 0.9551712 -0.1998834 0.2183912 1.005454 -0.05518906 0.6045247 0.7946723 5.903862 0 0 0 1</matrix>
+        <instance_light url="#Lamp-light"/>
+      </node>
+      <node id="trackBase_L_geo" name="trackBase_L_geo" type="NODE">
+        <matrix sid="transform">0.1 0 0 -6.52935e-4 0 0.1 0 0.002119767 0 0 0.1 -0.002115279 0 0 0 1</matrix>
+        <instance_geometry url="#trackBase_L_geo-mesh" name="trackBase_L_geo">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="blinn4SG-material" target="#blinn4SG-material"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

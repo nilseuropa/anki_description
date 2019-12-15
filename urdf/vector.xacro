@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<robot name="vector" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Inertia util -->
+  <xacro:include filename="$(find anki_description)/urdf/inertia.xacro"/>
+
+  <link name="base_footprint"/>
+  <joint name="base_footprint_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.026"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+  </joint>
+
+  <!-- Body -->
+  <link name="base_link">
+    <xacro:box_inertial mass="0.06" x="0.073" y="0.043" z="0.061" />
+    <visual>
+      <geometry>
+        <mesh filename="package://anki_description/meshes/vector_body.dae"  />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://anki_description/meshes/vector_body.dae"  />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="base_link">
+      <selfCollide>true</selfCollide>
+      <mu1 value="200.0"/>
+      <mu2 value="100.0"/>
+      <kp value="10000000.0"/>
+      <kd value="1.0"/>
+  </gazebo>
+
+  <!-- Head -->
+  <link name="head">
+    <xacro:box_inertial mass="0.01" x="0.036" y="0.038" z="0.041" />
+    <visual>
+      <geometry>
+        <mesh filename="package://anki_description/meshes/vector_head.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://anki_description/meshes/vector_head.dae"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="head">
+      <kp>1000000000.0</kp>
+      <kd>1000000000.0</kd>
+      <mu1>10.0</mu1>
+      <mu2>10.0</mu2>
+      <self_collide>0</self_collide>
+  </gazebo>
+
+  <!-- lifter -->
+  <link name="full_lift">
+    <xacro:box_inertial mass="0.01" x="0.081" y="0.058" z="0.050"/>
+    <visual>
+      <geometry>
+        <mesh filename="package://anki_description/meshes/vector_lift.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://anki_description/meshes/vector_lift.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- components -->
+  <xacro:include filename="$(find anki_description)/urdf/joints.xacro"/>
+  <xacro:include filename="$(find anki_description)/urdf/base.xacro"/>
+  <xacro:include filename="$(find anki_description)/urdf/vector_cam.xacro"/>
+  <xacro:include filename="$(find anki_description)/urdf/vector_drop.xacro"/>
+  <xacro:include filename="$(find anki_description)/urdf/laser.xacro"/>
+  <xacro:include filename="$(find anki_description)/urdf/imu.xacro"/>
+  <xacro:imu ankirobot="vector"/>
+
+</robot>

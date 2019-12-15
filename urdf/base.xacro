@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="wheel" params="link_name *origin radius">
+    <link name="${link_name}">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <cylinder radius="${radius}" length="0.0116739"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+            <cylinder radius="${radius}" length="0.0116739"/>
+        </geometry>
+      </collision>
+      <xacro:cylinder_inertial mass="0.005" radius="${radius}" length="0.01167"/>
+    </link>
+    <joint name="${link_name}_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="${link_name}"/>
+        <xacro:insert_block name="origin"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+    <transmission name="${link_name}_transmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${link_name}_joint">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="${link_name}_motor">
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <mechanicalReduction>30</mechanicalReduction>
+        </actuator>
+    </transmission>
+  </xacro:macro>
+
+<xacro:wheel link_name="front_left_wheel" radius="0.01314">
+  <origin xyz="0.03 0.024 -0.012" rpy="${-pi/2} 0 0"/>
+</xacro:wheel>
+
+<xacro:wheel link_name="front_right_wheel" radius="0.01314">
+  <origin xyz="0.03 -0.024 -0.012" rpy="${-pi/2} 0 0"/>
+</xacro:wheel>
+
+<xacro:wheel link_name="rear_left_wheel" radius="0.008995">
+  <origin xyz="-0.017 0.024 -0.0151707" rpy="${-pi/2} 0 0"/>
+</xacro:wheel>
+
+<xacro:wheel link_name="rear_right_wheel" radius="0.008995">
+  <origin xyz="-0.017 -0.024 -0.0151707" rpy="${-pi/2} 0 0"/>
+</xacro:wheel>
+
+<link name="left_belt">
+  <visual>
+    <geometry>
+      <mesh filename="package://anki_description/meshes/cozmo_belt.dae" />
+    </geometry>
+  </visual>
+</link>
+<joint name="wheel_left_belt" type="fixed">
+  <parent link="base_link"/>
+  <child link="left_belt"/>
+  <origin xyz="0.00945088 0.024 -0.0133211"/>
+</joint>
+
+<link name="right_belt">
+  <visual>
+    <geometry>
+      <mesh filename="package://anki_description/meshes/cozmo_belt.dae" />
+    </geometry>
+  </visual>
+</link>
+<joint name="wheel_right_belt" type="fixed">
+  <parent link="base_link"/>
+  <child link="right_belt"/>
+  <origin xyz="0.00945088 -0.024 -0.0133211"/>
+</joint>
+
+<gazebo>
+    <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+        <updateRate>25.0</updateRate>
+        <robotNamespace>/</robotNamespace>
+        <leftFrontJoint>front_left_wheel_joint</leftFrontJoint>
+        <rightFrontJoint>front_right_wheel_joint</rightFrontJoint>
+        <leftRearJoint>rear_left_wheel_joint</leftRearJoint>
+        <rightRearJoint>rear_right_wheel_joint</rightRearJoint>
+        <wheelSeparation>0.048</wheelSeparation>
+        <wheelDiameter>0.026281</wheelDiameter>
+        <robotBaseFrame>base_footprint</robotBaseFrame>
+        <torque>0.1</torque>
+        <commandTopic>cmd_vel</commandTopic>
+        <odometryTopic>odom</odometryTopic>
+        <broadcastTF>true</broadcastTF>
+        <odometryFrame>odom</odometryFrame>
+        <covariance_x>0.0001</covariance_x>
+        <covariance_y>0.0001</covariance_y>
+        <covariance_yaw>0.001</covariance_yaw>
+    </plugin>
+</gazebo>
+
+</robot>

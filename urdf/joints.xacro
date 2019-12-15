@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <joint name="base_to_head" type="revolute">
+    <parent link="base_link"/>
+    <child link="head"/>
+    <origin xyz="0.0174507 0 0.022003"/>
+    <limit lower="-0.52" upper="0.17" effort="100" velocity="10"/>
+    <!-- Dampnening breaks the model (?), keep it 0.0 -->
+    <dynamics damping="0.0" friction="0.1"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <joint name="base_to_lift" type="revolute">
+    <parent link="base_link"/>
+    <child link="full_lift"/>
+    <origin xyz="-0.005 0 0.013"/>
+    <limit lower="-0.8" upper="0" effort="5" velocity="10"/>
+    <dynamics damping="0.0" friction="0.1"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Transmissions for joints -->
+
+  <transmission name="base_to_head_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="base_to_head">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="base_to_headMotor">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+  </transmission>
+
+  <transmission name="base_to_lift_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="base_to_lift">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="base_to_liftMotor">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+  </transmission>
+
+</robot>

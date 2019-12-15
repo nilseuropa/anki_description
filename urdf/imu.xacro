@@ -1,44 +1,34 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<link name="imu_link">
-    <visual>
-      <geometry>
-          <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </visual>
-    <collision>
-      <geometry>
-        <box size="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
-    <inertial>
-        <mass value="0.008"/>
-        <inertia ixx="6.1066666666666663e-07" ixy="0" ixz="0" iyy="6.1066666666666663e-07" iyz="0" izz="1.1999999999999999e-06"/>
-    </inertial>
-</link>
-<joint name="imu_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="imu_link"/>
-    <origin rpy="0 0 0" xyz="0 0 0.05"/>
-</joint>
-<gazebo reference="imu_link">
- <gravity>true</gravity>
- <sensor name="imu_sensor" type="imu">
-   <always_on>true</always_on>
-   <update_rate>100</update_rate>
-   <visualize>true</visualize>
-   <topic>vector/imu</topic>
-   <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-     <topicName>imu/data_raw</topicName>
-     <bodyName>imu_link</bodyName>
-     <updateRateHZ>100.0</updateRateHZ>
-     <gaussianNoise>0.0001</gaussianNoise>
-     <xyzOffset>0 0 0</xyzOffset>
-     <rpyOffset>0 0 0</rpyOffset>
-     <frameName>imu_link</frameName>
-   </plugin>
- </sensor>
-</gazebo>
+<xacro:macro name="imu" params="ankirobot">
+  <link name="imu"/>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="head"/>
+    <child link="imu"/>
+    <origin xyz="0.0 0 0.0" rpy="0 0 0" />
+  </joint>
+
+  <gazebo reference="imu">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <topic>${ankirobot}/imu</topic>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <topicName>${ankirobot}/imu</topicName>
+        <bodyName>imu</bodyName>
+        <updateRateHZ>10.0</updateRateHZ>
+        <gaussianNoise>${0.0017*0.0017}</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>imu</frameName>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo>
+</xacro:macro>
 
 </robot>

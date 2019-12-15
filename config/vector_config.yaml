@@ -1,0 +1,14 @@
+vector:
+    joint_state_controller:
+        type: joint_state_controller/JointStateController
+        publish_rate: 20
+
+    lift_height:
+        type: effort_controllers/JointPositionController
+        joint: base_to_lift
+        pid: {p: 0.50, i: 0.0, d: 0.0}
+
+    head_angle:
+        type: effort_controllers/JointPositionController
+        joint: base_to_head
+        pid: {p: 0.5, i: 0.0, d: 0.0}
