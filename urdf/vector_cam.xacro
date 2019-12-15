@@ -1,10 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-
-    <link name="camera_link">
-    </link>
-    
+  <link name="camera_link"/>
   <joint name="head_camera_joint" type="fixed">
     <parent link="head"/>
     <child link="camera_link"/>
@@ -12,7 +9,7 @@
   </joint>
 
   <gazebo reference="camera_link">
-    <sensor type="camera" name="cozmo_camera">
+    <sensor type="camera" name="vector_camera">
       <update_rate>10.0</update_rate>
       <camera name="headcamera">
         <horizontal_fov>1.3962634</horizontal_fov>
@@ -27,7 +24,6 @@
         </clip>
         <noise>
           <type>gaussian</type>
-
           <mean>0.0</mean>
           <stddev>0.007</stddev>
         </noise>

@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <link name="imu">
-    </link>
+  <link name="imu"/>
 
   <joint name="imu_joint" type="fixed">
     <parent link="head"/>

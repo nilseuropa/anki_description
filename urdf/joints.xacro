@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <!-- JOINTS ====================================-->
 
   <joint name="base_to_head" type="revolute">
     <parent link="base_link"/>
     <child link="head"/>
     <origin xyz="0.0174507 0 0.022003"/>
     <limit lower="-0.52" upper="0.17" effort="100" velocity="10"/>
-    <!-- Dampning break the model, keep it 0.0 -->
+    <!-- Dampnening breaks the model (?), keep it 0.0 -->
     <dynamics damping="0.0" friction="0.1"/>
     <axis xyz="0 1 0"/>
   </joint>
@@ -20,15 +19,6 @@
     <dynamics damping="0.0" friction="0.1"/>
     <axis xyz="0 1 0"/>
   </joint>
-
-
-  <gazebo reference="head">
-      <kp>1000000000.0</kp>
-      <kd>1000000000.0</kd>
-      <mu1>10.0</mu1>
-      <mu2>10.0</mu2>
-      <self_collide>0</self_collide>
-  </gazebo>
 
   <!-- Transmissions for joints -->
 
@@ -53,5 +43,5 @@
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
   </transmission>
-  
+
 </robot>
