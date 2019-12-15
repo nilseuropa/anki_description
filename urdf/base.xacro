@@ -10,8 +10,9 @@
         </geometry>
       </visual>
       <collision>
+        <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
         <geometry>
-            <cylinder radius="${0.026281/2.0}" length="0.0116739"/>
+            <cylinder radius="0.01314" length="0.0116739"/>
         </geometry>
       </collision>
     </link>
@@ -21,6 +22,12 @@
         <xacro:insert_block name="origin"/>
         <axis xyz="0 1 0"/>
     </joint>
+
+    <!-- <gazebo reference="${link_name}">
+        <selfCollide>true</selfCollide>
+        <mu1>100000</mu1>
+        <mu2>100000</mu2>
+    </gazebo> -->
     <transmission name="${link_name}_transmission">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="${link_name}_joint">
@@ -35,15 +42,16 @@
 
   <xacro:macro name="rear_wheel" params="link_name *origin">
     <link name="${link_name}">
-      <xacro:cylinder_inertial mass="0.005" radius="0.01314" length="0.01167"/>
+      <xacro:cylinder_inertial mass="0.005" radius="0.008995" length="0.01167"/>
       <visual>
         <geometry>
           <mesh filename="package://anki_description/meshes/rlw2.dae" />
         </geometry>
       </visual>
       <collision>
+        <origin rpy="${pi/2} 0 0" xyz="0 0 0"/>
         <geometry>
-          <mesh filename="package://anki_description/meshes/rlw2.dae"/>
+            <cylinder radius="0.008995" length="0.0116739"/>
         </geometry>
       </collision>
     </link>
@@ -53,6 +61,12 @@
         <xacro:insert_block name="origin"/>
         <axis xyz="0 1 0"/>
     </joint>
+
+    <!-- <gazebo reference="${link_name}">
+        <selfCollide>true</selfCollide>
+        <mu1>0.5</mu1>
+        <mu2>0.5</mu2>
+    </gazebo> -->
     <transmission name="${link_name}_transmission">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="${link_name}_joint">
@@ -83,7 +97,7 @@
 
 
 <!-- Belts -->
-<!-- <link name="left_belt">
+<link name="left_belt">
   <visual>
     <geometry>
       <mesh filename="package://anki_description/meshes/cozmo_belt.dae" />
@@ -107,35 +121,15 @@
   <parent link="base_link"/>
   <child link="right_belt"/>
   <origin xyz="0.00945088 -0.024 -0.0133211"/>
-</joint> -->
+</joint>
 
 
-
-<!-- <gazebo reference="rear_right_wheel">
-  <mu1>0.5</mu1>
-  <mu2>0.5</mu2>
-</gazebo>
-<gazebo reference="rear_left_wheel">
-  <mu1>0.5</mu1>
-  <mu2>0.5</mu2>
-</gazebo>
-
-<gazebo reference="front_right_wheel">
-  <mu1>100000</mu1>
-  <mu2>100000</mu2>
-</gazebo>
-<gazebo reference="front_left_wheel">
-  <mu1>100000</mu1>
-  <mu2>100000</mu2>
-</gazebo> -->
-
-
-<!-- <gazebo>
+<gazebo>
   <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
     <robotNamespace>/vector</robotNamespace>
     <legacyModeNS>true</legacyModeNS>
   </plugin>
-</gazebo> -->
+</gazebo>
 
 <gazebo>
   <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
