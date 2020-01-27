@@ -17,12 +17,12 @@
     <visual>
       <geometry>
         <!-- TODO: check why this collada file won't load into gazebo -->
-        <mesh filename="package://cozmo_description/meshes/body3.dae"  />
+        <mesh filename="package://anki_description/meshes/body3.dae"  />
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://cozmo_description/meshes/body3.dae"  />
+        <mesh filename="package://anki_description/meshes/body3.dae"  />
       </geometry>
     </collision>
   </link>
@@ -39,12 +39,12 @@
     <xacro:box_inertial mass="0.01" x="0.036" y="0.038" z="0.041" />
     <visual>
       <geometry>
-        <mesh filename="package://cozmo_description/meshes/cozmo_head.dae" />
+        <mesh filename="package://anki_description/meshes/cozmo_head.dae" />
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://cozmo_description/meshes/cozmo_head.dae"/>
+        <mesh filename="package://anki_description/meshes/cozmo_head.dae"/>
       </geometry>
     </collision>
   </link>
@@ -61,12 +61,12 @@
     <xacro:box_inertial mass="0.01" x="0.081" y="0.058" z="0.050"/>
     <visual>
       <geometry>
-        <mesh filename="package://cozmo_description/meshes/cozmo_lift.dae"/>
+        <mesh filename="package://anki_description/meshes/cozmo_lift.dae"/>
       </geometry>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://cozmo_description/meshes/cozmo_lift.dae"/>
+        <mesh filename="package://anki_description/meshes/cozmo_lift.dae"/>
       </geometry>
     </collision>
   </link>
