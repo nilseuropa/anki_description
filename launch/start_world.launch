@@ -1,0 +1,32 @@
+<launch>
+    <arg name="put_robot_in_world" default="false" />
+    <arg name="put_robot_in_world_package" default="" />
+    <arg name="put_robot_in_world_launch" default="" />
+
+    <arg name="x" default="0.0" />
+    <arg name="y" default="0.0" />
+    <arg name="z" default="0.0" />
+    <arg name="roll" default="0.0"/>
+    <arg name="pitch" default="0.0"/>
+    <arg name="yaw" default="0.0"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find anki_description)/world/maze.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+    <group if="$(arg put_robot_in_world)">
+        <include file="$(eval find(put_robot_in_world_package) + '/launch/' + put_robot_in_world_launch)">
+            <arg name="x" value="$(arg x)" />
+            <arg name="y" value="$(arg y)" />
+            <arg name="z" value="$(arg z)" />
+            <arg name="roll" value="$(arg roll)"/>
+            <arg name="pitch" value="$(arg pitch)"/>
+            <arg name="yaw" value="$(arg yaw)" />
+        </include>
+    </group>
+</launch>
