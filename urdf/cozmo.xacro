@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="cozmo" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <!-- Inertia util -->
   <xacro:include filename="$(find anki_description)/urdf/inertia.xacro"/>
@@ -13,7 +13,6 @@
 
   <!-- Body -->
   <link name="base_link">
-    <xacro:box_inertial mass="0.06" x="0.073" y="0.043" z="0.061" />
     <visual>
       <geometry>
         <!-- TODO: check why this collada file won't load into gazebo -->
@@ -26,6 +25,10 @@
       </geometry>
     </collision>
   </link>
+  <inertial>
+    <mass value="0.06"/>
+    <xacro:box_inertia m="0.06" x="0.073" y="0.043" z="0.061" />
+  </inertial>
   <gazebo reference="base_link">
       <selfCollide>true</selfCollide>
       <mu1 value="200.0"/>
@@ -36,7 +39,7 @@
 
   <!-- Head -->
   <link name="head">
-    <xacro:box_inertial mass="0.01" x="0.036" y="0.038" z="0.041" />
+
     <visual>
       <geometry>
         <mesh filename="package://anki_description/meshes/cozmo_head.dae" />
@@ -47,6 +50,10 @@
         <mesh filename="package://anki_description/meshes/cozmo_head.dae"/>
       </geometry>
     </collision>
+    <inertial>
+      <mass value="0.01"/>
+      <xacro:box_inertia m="0.01" x="0.036" y="0.038" z="0.041" />
+    </inertial>
   </link>
   <gazebo reference="head">
       <kp>1000000000.0</kp>
@@ -58,7 +65,7 @@
 
   <!-- lifter -->
   <link name="full_lift">
-    <xacro:box_inertial mass="0.01" x="0.081" y="0.058" z="0.050"/>
+    <xacro:box_inertia m="0.01" x="0.081" y="0.058" z="0.050"/>
     <visual>
       <geometry>
         <mesh filename="package://anki_description/meshes/cozmo_lift.dae"/>

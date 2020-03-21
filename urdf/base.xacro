@@ -17,8 +17,18 @@
             <cylinder radius="${radius}" length="0.0116739"/>
         </geometry>
       </collision>
-      <xacro:cylinder_inertial mass="0.005" radius="${radius}" length="0.01167"/>
+      <inertial>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <cylinder radius="${radius}" length="0.0116739"/>
+        </geometry>
+        <mass value="0.01"/>
+        <xacro:cylinder_inertia m="0.01" r="${radius}" h="0.01167"/>
+      </inertial>
     </link>
+    <gazebo reference="${link_name}">
+      <material>Gazebo/Grey</material>
+    </gazebo>
     <joint name="${link_name}_joint" type="continuous">
         <parent link="base_link"/>
         <child link="${link_name}"/>
@@ -35,13 +45,13 @@
             <mechanicalReduction>30</mechanicalReduction>
         </actuator>
     </transmission>
-    <!-- <gazebo reference="${link_name}">
-      <selfCollide>true</selfCollide>
-      <mu1 value="200.0"/>
+    <gazebo reference="${link_name}">
+      <selfCollide>True</selfCollide>
+      <!-- <mu1 value="200.0"/>
       <mu2 value="100.0"/>
       <kp value="10000000.0"/>
-      <kd value="1.0"/>
-    </gazebo> -->
+      <kd value="1.0"/> -->
+    </gazebo>
   </xacro:macro>
 
 <xacro:wheel link_name="front_left_wheel" radius="0.01314">
@@ -97,7 +107,7 @@
         <wheelSeparation>0.048</wheelSeparation>
         <wheelDiameter>0.026281</wheelDiameter>
         <robotBaseFrame>base_footprint</robotBaseFrame>
-        <torque>0.1</torque>
+        <torque>1.0</torque>
         <commandTopic>cmd_vel</commandTopic>
         <odometryTopic>odom</odometryTopic>
         <broadcastTF>true</broadcastTF>

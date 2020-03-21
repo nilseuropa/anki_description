@@ -5,6 +5,7 @@
   <xacro:include filename="$(find anki_description)/urdf/inertia.xacro"/>
 
   <link name="base_footprint"/>
+
   <joint name="base_footprint_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.027"/>
     <parent link="base_footprint"/>
@@ -13,17 +14,26 @@
 
   <!-- Body -->
   <link name="base_link">
-    <xacro:box_inertial mass="0.06" x="0.073" y="0.043" z="0.061" />
     <visual>
       <geometry>
         <mesh filename="package://anki_description/meshes/vector_body.dae"  />
       </geometry>
     </visual>
     <collision>
+      <origin rpy="0 0 0" xyz="0.0075 0.0 -0.01"/>
       <geometry>
-        <mesh filename="package://anki_description/meshes/vector_body.dae"  />
+        <box size="0.07 0.03 0.01"/>
+        <!-- <mesh filename="package://anki_description/meshes/vector_body.dae"  /> -->
       </geometry>
     </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0075 0.0 -0.01"/>
+      <geometry>
+        <box size="0.073 0.043 0.061"/>
+      </geometry>
+      <mass value="0.16"/>
+      <xacro:box_inertia m="0.16" x="0.073" y="0.043" z="0.061" />
+    </inertial>
   </link>
   <gazebo reference="base_link">
       <selfCollide>true</selfCollide>
@@ -35,7 +45,6 @@
 
   <!-- Head -->
   <link name="head">
-    <xacro:box_inertial mass="0.01" x="0.036" y="0.038" z="0.041" />
     <visual>
       <geometry>
         <mesh filename="package://anki_description/meshes/vector_head.dae" />
@@ -43,33 +52,52 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="package://anki_description/meshes/vector_head.dae"/>
+        <sphere radius="0.02"/>
       </geometry>
     </collision>
+    <inertial>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+      <mass value="0.03"/>
+      <xacro:sphere_inertia m="0.03" r="0.02" />
+    </inertial>
   </link>
   <gazebo reference="head">
-      <kp>1000000000.0</kp>
-      <kd>1000000000.0</kd>
-      <mu1>10.0</mu1>
-      <mu2>10.0</mu2>
-      <self_collide>0</self_collide>
+    <mu1 value="200.0"/>
+    <mu2 value="100.0"/>
+    <kp value="10000000.0"/>
+    <kd value="1.0"/>
   </gazebo>
 
   <!-- lifter -->
   <link name="full_lift">
-    <xacro:box_inertial mass="0.01" x="0.081" y="0.058" z="0.050"/>
     <visual>
       <geometry>
         <mesh filename="package://anki_description/meshes/vector_lift.dae"/>
       </geometry>
     </visual>
     <collision>
+      <origin rpy="0 0 0" xyz="0.062 0.0 -0.015"/>
       <geometry>
-        <mesh filename="package://anki_description/meshes/vector_lift.dae"/>
+        <box size="0.0075 0.05 0.025"/>
       </geometry>
     </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.062 0.0 -0.015"/>
+      <geometry>
+        <box size="0.0075 0.05 0.025"/>
+      </geometry>
+      <mass value="0.05"/>
+      <xacro:box_inertia m="0.05" x="0.0075" y="0.05" z="0.025"/>
+    </inertial>
   </link>
-
+  <gazebo reference="full_lift">
+    <mu1 value="200.0"/>
+    <mu2 value="100.0"/>
+    <kp value="10000000.0"/>
+    <kd value="1.0"/>
+  </gazebo>
   <!-- components -->
   <xacro:include filename="$(find anki_description)/urdf/joints.xacro"/>
   <xacro:include filename="$(find anki_description)/urdf/base.xacro"/>

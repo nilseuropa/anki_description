@@ -288,7 +288,7 @@
               <color sid="ambient">0 0 0 1</color>
             </ambient>
             <diffuse>
-              <color sid="diffuse">0.02485073 0.02485073 0.02485073 1</color>
+              <color sid="diffuse">0.15 0.15 0.15 1</color>
             </diffuse>
             <specular>
               <color sid="specular">0.2535541 0.2535541 0.2535541 1</color>
@@ -340,7 +340,7 @@
               <color sid="ambient">0 0 0 1</color>
             </ambient>
             <diffuse>
-              <color sid="diffuse">0.001237963 0.001237963 0.001237963 1</color>
+              <color sid="diffuse">0.101237963 0.101237963 0.101237963 1</color>
             </diffuse>
             <specular>
               <color sid="specular">0.5 0.5 0.5 1</color>

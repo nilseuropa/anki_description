@@ -19,4 +19,4 @@ To switch between Cozmo and Anki models change `robot_type` argument to:
   - Cliff sensor: libgazebo_ros_range _( 1 for Cozmo 4 for Vector)_
   - NIR-TOF: libgazebo_ros_range _(Vector only)_
 
-<img src="doc/rviz.png">
+<img src="doc/vector_urdf.png">
