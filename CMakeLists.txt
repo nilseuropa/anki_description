@@ -1,13 +1,15 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(anki_description)
 
-find_package(catkin REQUIRED COMPONENTS
-  urdf
+find_package(ament_cmake REQUIRED)
+
+install(
+  DIRECTORY
+    config
+    launch
+    meshes
+    urdf
+  DESTINATION share/${PROJECT_NAME}
 )
 
-catkin_package(
-)
-
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
+ament_package()

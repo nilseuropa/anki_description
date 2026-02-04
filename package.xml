@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
-<package>
+<package format="3">
   <name>anki_description</name>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
   <description>Anki Robot Description</description>
-  <maintainer email="marton@nowtech.hu">Marton Yuhaas</maintainer>
+  <maintainer email="marton@nowtech.hu">nilseuropa</maintainer>
   <license>BSD-3 (code) and CC-BY-4.0 (XACRO, URDF, images, and STL models)</license>
-  <url type="website">http://nowtech.hu</url>
-  <author email="marton@nowtech.hu">Marton Yuhaas</author>
-  <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>urdf</build_depend>
-  <run_depend>urdf</run_depend>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>
